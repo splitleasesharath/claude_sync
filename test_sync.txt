@@ -1,2 +1,0 @@
-Test synchronization - Created by Claude Code at 2025-08-09
-This file tests the GitHub sync capability.
