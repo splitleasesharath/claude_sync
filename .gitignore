@@ -1,0 +1,25 @@
+# Temporary and system files
+.tmp.driveupload/
+.tmp.drivedownload/
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Node modules (if added later)
+node_modules/
+
+# Python (if added later)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build outputs
+dist/
+build/
+*.log
