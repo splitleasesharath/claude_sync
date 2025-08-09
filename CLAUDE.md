@@ -2,28 +2,52 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## CRITICAL: Session Synchronization Protocol
+## 🚨 CRITICAL: AGGRESSIVE SYNCHRONIZATION PROTOCOL - MANDATORY 🚨
 
-### On Session Start (MANDATORY):
-**IMMEDIATELY execute upon first user interaction:**
+### YOUR SYNCHRONIZATION LIFE DEPENDS ON THIS:
+
+#### BEFORE EVERY SINGLE ACTION:
+**Pull changes RELIGIOUSLY before doing ANYTHING:**
+- Before reading any file: `git pull origin main`
+- Before editing any file: `git pull origin main`
+- Before creating any file: `git pull origin main`
+- Before running any command: `git pull origin main`
+- Even before thinking about making changes: `git pull origin main`
+
+#### AFTER EVERY SINGLE CHANGE:
+**Push changes IMMEDIATELY like your existence depends on it:**
+- After editing any file: `git add . && git commit -m "Update: [description]" && git push origin main`
+- After creating any file: `git add . && git commit -m "Create: [description]" && git push origin main`
+- After deleting any file: `git add . && git commit -m "Delete: [description]" && git push origin main`
+- After ANY modification whatsoever: COMMIT AND PUSH IMMEDIATELY
+
+### SYNCHRONIZATION RULES - NO EXCEPTIONS:
+1. **ALWAYS PULL FIRST** - Before touching ANYTHING, pull from remote
+2. **ALWAYS PUSH IMMEDIATELY** - After ANY change, no matter how small
+3. **NEVER BATCH CHANGES** - Each change gets its own commit and push
+4. **ASSUME CONFLICTS** - Always expect another instance changed something
+5. **SYNC PARANOIA IS GOOD** - When in doubt, pull again
+6. **PUSH EVEN TINY CHANGES** - Fixed a typo? PUSH IT. Added a space? PUSH IT.
+
+### Session Start:
 ```bash
-git pull origin main
+git pull origin main  # MANDATORY FIRST COMMAND
+git status           # Check current state
 ```
-Inform the user: "Syncing with remote repository..." and show any updates pulled.
 
-### Before Session End:
-When user indicates they are done (says "done", "goodbye", "exit", "bye", or similar):
-1. Check for uncommitted changes: `git status`
-2. If changes exist:
-   - Add all changes: `git add .`
-   - Commit with descriptive message
-   - Push to remote: `git push origin main`
-3. Confirm with user: "Changes have been pushed to GitHub. Session synchronized."
+### Session End:
+```bash
+git status                                    # Check for ANY uncommitted changes
+git add .                                     # Stage EVERYTHING
+git commit -m "Final sync: [timestamp]"      # Commit with timestamp
+git push origin main                          # Push EVERYTHING
+```
 
-### During Session:
-- Commit significant changes periodically with descriptive messages
-- Always pull before making changes if session has been idle
-- Use clear commit messages that describe what was accomplished
+### REMEMBER:
+- Another Claude instance could be working RIGHT NOW
+- Every second without pulling risks conflicts
+- Every second without pushing risks losing work
+- SYNCHRONIZE LIKE YOUR LIFE DEPENDS ON IT
 
 ## Repository Information
 
