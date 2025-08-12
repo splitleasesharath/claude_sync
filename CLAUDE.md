@@ -72,8 +72,19 @@ When a project is added to this directory:
 
 ### MANDATORY TASK COMPLETION NOTIFICATIONS
 
+#### Initial Setup (One-time per machine):
+1. Create `.env.local` file in the repository root
+2. Add your Slack webhook URL:
+   ```
+   SLACK_WEBHOOK_URL=your_webhook_url_here
+   ```
+3. This file is automatically excluded from git (see .gitignore)
+4. Each machine needs its own `.env.local` file
+
 #### Configuration:
-**Slack Webhook URL:** `https://hooks.slack.com/services/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`
+**Slack Webhook URL:** Stored in `.env.local` file (not committed to GitHub)
+- Look for `SLACK_WEBHOOK_URL` in `.env.local`
+- Or check `slack-config.local.json` for webhook configuration
 
 #### When to Send Notifications:
 **Send a Slack notification AFTER completing:**
@@ -85,8 +96,11 @@ When a project is added to this directory:
 
 #### Notification Format:
 ```bash
+# First, load the webhook URL from local config:
+SLACK_WEBHOOK=$(grep SLACK_WEBHOOK_URL .env.local | cut -d '=' -f2)
+
 # After completing ANY task, send notification:
-curl -X POST https://hooks.slack.com/services/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 \
+curl -X POST "$SLACK_WEBHOOK" \
   -H 'Content-Type: application/json' \
   -d '{
     "text": "✅ Task Completed",
@@ -104,14 +118,17 @@ curl -X POST https://hooks.slack.com/services/TM545C1T7/B08QSAWLU81/zxvJsegND8jT
 
 #### Example Implementation:
 ```bash
+# Load webhook URL from local config:
+SLACK_WEBHOOK=$(grep SLACK_WEBHOOK_URL .env.local | cut -d '=' -f2)
+
 # After editing a file:
 git add . && git commit -m "Update: file.txt" && git push origin main
-curl -X POST https://hooks.slack.com/services/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 \
+curl -X POST "$SLACK_WEBHOOK" \
   -H 'Content-Type: application/json' \
   -d '{"text":"✅ File updated and pushed: file.txt"}'
 
 # After completing a feature:
-curl -X POST https://hooks.slack.com/services/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 \
+curl -X POST "$SLACK_WEBHOOK" \
   -H 'Content-Type: application/json' \
   -d '{"text":"✅ Feature implemented: User authentication"}'
 ```
@@ -125,7 +142,10 @@ curl -X POST https://hooks.slack.com/services/TM545C1T7/B08QSAWLU81/zxvJsegND8jT
 
 ### Error Notification Format:
 ```bash
-curl -X POST https://hooks.slack.com/services/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 \
+# Load webhook URL from local config:
+SLACK_WEBHOOK=$(grep SLACK_WEBHOOK_URL .env.local | cut -d '=' -f2)
+
+curl -X POST "$SLACK_WEBHOOK" \
   -H 'Content-Type: application/json' \
   -d '{"text":"❌ Task Failed: [ERROR_DESCRIPTION]"}'
 ```

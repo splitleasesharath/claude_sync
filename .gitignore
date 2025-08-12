@@ -23,3 +23,10 @@ venv/
 dist/
 build/
 *.log
+
+# Local configuration files - NEVER COMMIT
+.env.local
+*.local.json
+slack-config.local.json
+.env
+.secrets
