@@ -67,3 +67,67 @@ When a project is added to this directory:
 2. Document the architecture and structure
 3. Note any project-specific conventions
 4. Keep synchronization protocol intact above
+
+## 🔔 SLACK NOTIFICATION PROTOCOL
+
+### MANDATORY TASK COMPLETION NOTIFICATIONS
+
+#### Configuration:
+**Slack Webhook URL:** `[TO BE PROVIDED BY USER]`
+
+#### When to Send Notifications:
+**Send a Slack notification AFTER completing:**
+- Any file creation, modification, or deletion
+- Running tests or builds
+- Completing any user-requested task
+- Fixing bugs or implementing features
+- Any significant operation completion
+
+#### Notification Format:
+```bash
+# After completing ANY task, send notification:
+curl -X POST [SLACK_WEBHOOK_URL] \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "✅ Task Completed",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "*Task:* [TASK_DESCRIPTION]\n*Status:* Completed\n*Time:* [TIMESTAMP]\n*Repository:* claude_sync"
+        }
+      }
+    ]
+  }'
+```
+
+#### Example Implementation:
+```bash
+# After editing a file:
+git add . && git commit -m "Update: file.txt" && git push origin main
+curl -X POST [SLACK_WEBHOOK_URL] \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"✅ File updated and pushed: file.txt"}'
+
+# After completing a feature:
+curl -X POST [SLACK_WEBHOOK_URL] \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"✅ Feature implemented: User authentication"}'
+```
+
+### NOTIFICATION RULES:
+1. **ALWAYS NOTIFY** - Send notification after EVERY task completion
+2. **INCLUDE CONTEXT** - Describe what was done in the notification
+3. **TIMESTAMP EVERYTHING** - Include time information when possible
+4. **ERROR NOTIFICATIONS** - Also notify if a task fails
+5. **BATCH NOTIFICATIONS** - For multiple related tasks, send one comprehensive notification
+
+### Error Notification Format:
+```bash
+curl -X POST [SLACK_WEBHOOK_URL] \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"❌ Task Failed: [ERROR_DESCRIPTION]"}'
+```
+
+**NOTE:** Replace `[SLACK_WEBHOOK_URL]` with the actual webhook URL provided by the user.
