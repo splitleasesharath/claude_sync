@@ -73,7 +73,7 @@ When a project is added to this directory:
 ### MANDATORY TASK COMPLETION NOTIFICATIONS
 
 #### Configuration:
-**Slack Webhook URL:** `[TO BE PROVIDED BY USER]`
+**Slack Webhook URL:** `https://hooks.slack.com/services/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`
 
 #### When to Send Notifications:
 **Send a Slack notification AFTER completing:**
@@ -86,7 +86,7 @@ When a project is added to this directory:
 #### Notification Format:
 ```bash
 # After completing ANY task, send notification:
-curl -X POST [SLACK_WEBHOOK_URL] \
+curl -X POST https://hooks.slack.com/services/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 \
   -H 'Content-Type: application/json' \
   -d '{
     "text": "✅ Task Completed",
@@ -106,12 +106,12 @@ curl -X POST [SLACK_WEBHOOK_URL] \
 ```bash
 # After editing a file:
 git add . && git commit -m "Update: file.txt" && git push origin main
-curl -X POST [SLACK_WEBHOOK_URL] \
+curl -X POST https://hooks.slack.com/services/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 \
   -H 'Content-Type: application/json' \
   -d '{"text":"✅ File updated and pushed: file.txt"}'
 
 # After completing a feature:
-curl -X POST [SLACK_WEBHOOK_URL] \
+curl -X POST https://hooks.slack.com/services/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 \
   -H 'Content-Type: application/json' \
   -d '{"text":"✅ Feature implemented: User authentication"}'
 ```
@@ -125,9 +125,7 @@ curl -X POST [SLACK_WEBHOOK_URL] \
 
 ### Error Notification Format:
 ```bash
-curl -X POST [SLACK_WEBHOOK_URL] \
+curl -X POST https://hooks.slack.com/services/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 \
   -H 'Content-Type: application/json' \
   -d '{"text":"❌ Task Failed: [ERROR_DESCRIPTION]"}'
 ```
-
-**NOTE:** Replace `[SLACK_WEBHOOK_URL]` with the actual webhook URL provided by the user.
